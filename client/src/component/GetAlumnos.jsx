@@ -30,7 +30,7 @@ export function ListAlumnos() {
                                         <p className="card-text">{alumno.dni}</p>
                                         <div className="d-flex justify-content-between aling-item-center">
                                             <div className="gtn-group">
-                                                <Asistencia dni={alumno.dni}/>
+                                                <Asistencia dni={alumno.dni} />
                                                 <Link className="btn btn-sm btn-outline-secondary">Editar</Link>
                                             </div>
                                         </div>

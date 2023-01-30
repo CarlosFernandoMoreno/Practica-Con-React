@@ -1,7 +1,8 @@
-/* import { useState } from "react";
-import { Link } from "react-router-dom";
+ import { useState } from "react";
+import { Link , useParams} from "react-router-dom";
 import { GetDivisiones } from "./GetDivisiones";
 export function PostAlumno() {
+    const {id} = useParams;
     const [datos, setDatos] = useState();
     const formAlumno = (e) => {
         setDatos({
@@ -11,8 +12,8 @@ export function PostAlumno() {
     };
     const enviarDatos = (e)=>{
         e.preventDefault();
-        fetch("http://localhost:3006/insertarAlumno", {
-            method: "POST",
+        fetch(`http://localhost:3006/insertarAlumno/${id}`, {
+            method: "PUT",
             headers:{
                 "Content-Type": "application/json"
             },
@@ -57,4 +58,4 @@ export function PostAlumno() {
                 </div>
             </form>
         </div>);
-} */
+} 
