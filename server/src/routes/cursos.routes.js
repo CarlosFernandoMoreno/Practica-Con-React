@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { traerCursos, traerTodosLosCursos } from '../bd.js';
+import { traerCursos, traerTodosLosCursos } from '../controllers/cursos.controller.js';
 
 const router = Router();
 

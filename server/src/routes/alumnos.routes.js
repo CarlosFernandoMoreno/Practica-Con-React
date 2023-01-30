@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {traerAlumnos, insertarUnAlumno, asistencia, confirmarAsistencia, confirmarAlumno } from '../bd.js';
+import {traerAlumnos, insertarUnAlumno, asistencia, confirmarAsistencia } from '../controllers/alumnos.controller.js';
 
 const router = Router();
 
@@ -39,8 +39,8 @@ router.put("/asistencia", async (req, res) => {
     res.json(result).status(200);
 
 })
-router.put("/editarAlumno", (req, res) => {
-
+router.put("/editaralumno", (req, res) => {
+ 
 });
 
 export default router;

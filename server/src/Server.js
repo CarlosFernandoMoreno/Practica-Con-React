@@ -1,8 +1,8 @@
 //imports
 import express from 'express';
 import cors from 'cors';
-import alumnosRoutes from '../routes/alumnos.routes.js'
-import cursosRoutes from '../routes/cursos.routes.js'
+import alumnosRoutes from './routes/alumnos.routes.js'
+import cursosRoutes from './routes/cursos.routes.js'
 //constantes
 const app = express();
 const port = 3006;
