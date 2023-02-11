@@ -1,5 +1,5 @@
-import { Router } from "express";
-import {traerAlumnos, insertarUnAlumno, asistencia, confirmarAsistencia } from '../controllers/alumnos.controller.js';
+const { Router } = require("express");
+const { traerAlumnos, insertarUnAlumno, asistencia, confirmarAsistencia, putAlumno, traerAlumno } = require('./alumnos.controller.js');
 
 const router = Router();
 
@@ -10,19 +10,14 @@ router.get("/lista", async (req, res) => {
     res.json(alumnos);
 
 });
-
+router.get("/alumno/:dni", async(req, res)=>{
+    console.log(req.params);
+    const alumno = await traerAlumno(dni);
+    res.json(alumno);
+})
 
 router.post("/insertarAlumno", async (req, res) => {
     let nuevoAlumno = req.body;
-    if (!validarAlumno(nuevoAlumno)) {
-        res.status(400).json("Los datos son incorrectos");
-        return;
-    };
-    const resl = await confirmarAlumno(nuevoAlumno.dni);
-    if (resl === 1) {
-        res.status(400).json("El alumno ya existe");
-        return;
-    }
     const result = await insertarUnAlumno(nuevoAlumno);
     res.json(result).status(200);
 
@@ -39,8 +34,15 @@ router.put("/asistencia", async (req, res) => {
     res.json(result).status(200);
 
 })
-router.put("/editaralumno", (req, res) => {
- 
+router.put("/editaralumno/:id", async (req, res) => {
+    try {
+        const data = req.body;
+        const response = await putAlumno(data);
+        console.log(response);
+        res.json("capo editaste con exito pa");
+    } catch{
+        console.log(error);
+    }
 });
 
-export default router;
+module.exports = router;

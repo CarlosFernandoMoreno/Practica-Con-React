@@ -1,5 +1,5 @@
 
-import{client,coleccionDeAlumnos,dbNombre,MongoServerError,ColeccionDeCursos} from '../database/database.js'
+const { client, dbNombre, MongoServerError, ColeccionDeCursos } = require('../../database/database.js');
 
 const traerCursos = async (Especialidad) => {
     try {
@@ -7,7 +7,7 @@ const traerCursos = async (Especialidad) => {
         const db = client.db(dbNombre);
         const collection = db.collection(ColeccionDeCursos);
         const filteredDocs = await collection.find({ Especialidad }).sort({ Division: 1 }).toArray();
-        let divisiones = filteredDocs.map((division)=>division.Division)
+        let divisiones = filteredDocs.map((division) => division.Division)
         return divisiones;
     } catch {
         (error) => {
@@ -26,7 +26,7 @@ const traerTodosLosCursos = async () => {
         const db = client.db(dbNombre);
         const collection = db.collection(ColeccionDeCursos);
         const Docs = await collection.find({}, { Division: 1 }).sort({ Division: 1 }).toArray();
-        let divisiones = Docs.map((division)=>division.Division)
+        let divisiones = Docs.map((division) => division.Division)
         return divisiones;
     } catch {
         (error) => {
@@ -37,36 +37,13 @@ const traerTodosLosCursos = async () => {
         throw error;
     }
 };
-const getMaterias = async (division) => {
-    await client.connect();
-    const db = client.db(dbNombre);
-    const collection = db.collection(ColeccionDeCursos);
-    try {
-        const curso = await collection.findOne({ Division: division });
-        const materias = curso.Materias;
-        return materias;
-    } catch {
-        (error) => {
-            if (error instanceof MongoServerError) {
-                console.log(`Error worth logging: ${error}`);
-            };
-        };
-        throw error;
-    }
-
-}
-
-const confirmarAlumno = async (dni) => {
+const crearCurso = async (curso) => {
     try {
         await client.connect();
-
         const db = client.db(dbNombre);
-        const collection = db.collection(coleccionDeAlumnos);
-        const result = await collection.count({ dni: dni });
-
-        await client.close();
-        return result;
-
+        const collection = db.collection(ColeccionDeCursos);
+        const insertResult = await collection.insertOne({ curso });
+        return 'Curso guardado';
     } catch {
         (error) => {
             if (error instanceof MongoServerError) {
@@ -75,8 +52,10 @@ const confirmarAlumno = async (dni) => {
         };
         throw error;
     }
+
 }
-export { traerCursos,traerTodosLosCursos, getMaterias,confirmarAlumno};
+
+module.exports = { traerCursos, traerTodosLosCursos, crearCurso };
 
 /* const xd = async () => {
     const result = await traerTodosLosCursos();

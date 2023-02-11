@@ -1,7 +1,19 @@
-import { MongoClient, MongoServerError } from "mongodb";
-const connURL = "mongodb+srv://Carlos:7mogMBfRA3mqiSTK@cluster0.vw36v.mongodb.net/";
+const { MongoClient, MongoServerError } = require("mongodb");
+const connURL = "mongodb+srv://Carlos:7mogMBfRA3mqiSTK@cluster0.vw36v.mongodb.net/ProyectoFinal?retryWrites=true&w=majority";
 const dbNombre = "ProyectoFinal";
-const ColeccionDeCursos = "Cursos";
-const coleccionDeAlumnos = "Alumnos";
-const client = new MongoClient(connURL);
-export {client,coleccionDeAlumnos,ColeccionDeCursos,dbNombre,connURL,MongoServerError};
+
+
+const mongoose = require('mongoose');
+
+mongoose.set('strictQuery', true); 
+mongoose.connect(connURL, {
+    UseNewUrlParser: true,
+    useUnifiedTopology: true
+});
+mongoose.connection.on('open', _ => {
+    console.log('database is connected to', connURL)
+})
+
+module.exports = { dbNombre, connURL, MongoServerError }; 
+
+'mongodb+srv://username:badpw@cluster0-OMITTED.mongodb.net/' + 'test?retryWrites=true&w=majority';

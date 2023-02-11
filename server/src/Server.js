@@ -1,8 +1,8 @@
 //imports
-import express from 'express';
-import cors from 'cors';
-import alumnosRoutes from './routes/alumnos.routes.js'
-import cursosRoutes from './routes/cursos.routes.js'
+const express = require('express');
+const cors = require('cors');
+const alumnosRoutes = require('./modules/alumno/alumnos.routes.js')
+const cursosRoutes = require('./modules/cursos/cursos.routes.js')
 //constantes
 const app = express();
 const port = 3006;
