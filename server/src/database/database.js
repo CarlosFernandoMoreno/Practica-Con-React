@@ -1,5 +1,4 @@
 const { MongoClient, MongoServerError } = require("mongodb");
-const connURL = "mongodb+srv://Carlos:7mogMBfRA3mqiSTK@cluster0.vw36v.mongodb.net/ProyectoFinal?retryWrites=true&w=majority";
 const dbNombre = "ProyectoFinal";
 
 
